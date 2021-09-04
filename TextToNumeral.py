@@ -1,6 +1,4 @@
 from NumeralHelper import NumeralHelperClass as helper
-import NumeralHelper
-from pprint import pprint
 
 x = helper()
 input_string = "one hundred eighty-nine trillion four hundred forty-one billion six hundred eighteen million seven hundred sixty-five thousand eight hundred forty-seven"
