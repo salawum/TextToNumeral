@@ -8,42 +8,33 @@ class NumeralHelperClass:
 
 
     def tokeniser(self, string):
-        return string.replace("-"," ").replace(",","").split()
+        tokens = string.replace("-"," ").replace(",","").split()
+        self.setPreviousToken(tokens[0])
+        return tokens
 
 
-    def pront(self, tokens):
+    def word_print(self, tokens):
         if tokens != []:
-            token = tokens[0]
-            print(token)
-            if self.isTokenValid(token):
-                # TODO
-                # Proper Rules go here
-                # Get rid of the token reversal
-                # In the example given, we could just assume that if the previousToken was a hundred
-                # or a thousand and the current token isn't 'and', we can add the current pool to the
-                # total and start a new pool
-                self.increaseTotal(self.getValue(token))
-                self.getTotal()
-            self.updateToken(token)
-            self.pront(tokens[1::])
-
-
-    def getName(self, token):
-        return token
+            current_token = tokens[0]
+            if self.isTokenValid(current_token):
+                if self.getValue(self.getPreviousToken()) >= 1000 and current_token != "and":
+                    self.increaseTotal(self.getPool())
+                    self.setPool(0)
+                    self.increasePool(self.getValue(current_token))
+                elif self.getValue(current_token) >= 100:
+                    self.setPool(self.getPool() * self.getValue(current_token))
+                else:
+                    self.increasePool(self.getValue(current_token))
+            else:
+                return f'Token \'{current_token}\' not found'
+            self.setPreviousToken(current_token)
+            return self.word_print(tokens[1::])
+        self.increaseTotal(self.getPool())
+        return self.getTotal()
 
 
     def getValue(self, token):
-        try:
-            return numerals.get(token).get("value")
-        except AttributeError:
-            return f'No value found for token: \'{token}\''
-
-
-    def getType(self, token):
-        try:
-            return numerals.get(token).get("denomination")
-        except AttributeError:
-            return f'No type found for token: \'{token}\''
+        return numerals.get(token)
 
 
     def isTokenValid(self, token):
@@ -53,14 +44,28 @@ class NumeralHelperClass:
 
 
     def getTotal(self):
-        print(self.total)
         return self.total
 
 
     def increaseTotal(self, value):
         self.total += value
-        return self.total
 
-    # Not tested
-    def updateToken(self, token):
+
+    def getPool(self):
+        return self.pool
+
+
+    def setPool(self, value):
+        self.pool = value
+
+
+    def increasePool(self, value):
+        self.pool += value
+
+
+    def setPreviousToken(self, token):
         self.previousToken = token
+
+    
+    def getPreviousToken(self):
+        return self.previousToken

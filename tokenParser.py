@@ -3,14 +3,5 @@ import NumeralHelper
 from pprint import pprint
 
 x = helper()
-# print(x.getName("sixty"))
-# print(x.getType("eighteen"))
-# print(x.getValue("eleen"))
-# print(x.isTokenValid("test"))
-# print(x.isTokenValid("thousand"))
-# print(x.getTotal())
-
-input_string = "seven hundred and sixty-three thousand, nine hundred and twenty-four"
-x.pront(x.tokeniser(input_string))
-
-# pprint(NumeralHelper.numerals, sort_dicts=False)
+input_string = "one hundred eighty-nine trillion four hundred forty-one billion six hundred eighteen million seven hundred sixty-five thousand eight hundred forty-seven"
+print(x.word_print(x.tokeniser(input_string)))
