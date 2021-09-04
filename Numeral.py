@@ -32,5 +32,7 @@ numerals = {
 
     "thousand": {"value": 1000, "denomination": "THOUSAND"},
 
-    "million": {"value": 1000000, "denomination": "MILLION"}
+    "million": {"value": 1000000, "denomination": "MILLION"},
+
+    "and": {"value": 0, "denomination": "AUXILIARY"}
 }
