@@ -7,13 +7,17 @@ class NumeralHelperClass:
         self.pool = 0
 
 
+    def convert(self, string, formatting=True):
+        return self.word_print(self.tokeniser(string), formatting)
+
+
     def tokeniser(self, string):
         tokens = string.replace("-"," ").replace(",","").split()
         self.setPreviousToken(tokens[0])
         return tokens
 
 
-    def word_print(self, tokens):
+    def word_print(self, tokens, formatting):
         if tokens != []:
             current_token = tokens[0]
             if self.isTokenValid(current_token):
@@ -28,9 +32,17 @@ class NumeralHelperClass:
             else:
                 return f'Token \'{current_token}\' not found'
             self.setPreviousToken(current_token)
-            return self.word_print(tokens[1::])
+            return self.word_print(tokens[1::], formatting)
         self.increaseTotal(self.getPool())
-        return self.getTotal()
+        if not formatting:
+            return self.getTotal()
+        totalString = str(self.getTotal())
+        newString = totalString
+        index = 3
+        while index < len(totalString):
+            newString = newString[:len(totalString)-index] + ',' + newString[len(totalString)-index:]
+            index += 3
+        return newString
 
 
     def getValue(self, token):
@@ -66,6 +78,6 @@ class NumeralHelperClass:
     def setPreviousToken(self, token):
         self.previousToken = token
 
-    
+
     def getPreviousToken(self):
         return self.previousToken

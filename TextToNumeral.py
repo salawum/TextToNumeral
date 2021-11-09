@@ -1,5 +1,5 @@
-from NumeralHelper import NumeralHelperClass as helper
+from NumeralHelper import NumeralHelperClass as number_helper
 
-x = helper()
+x = number_helper()
 input_string = "one hundred eighty-nine trillion four hundred forty-one billion six hundred eighteen million seven hundred sixty-five thousand eight hundred forty-seven"
-print(x.word_print(x.tokeniser(input_string)))
+print(x.convert(input_string))
